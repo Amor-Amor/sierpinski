@@ -7,11 +7,26 @@
 import SVGLibrary
 
 // YOUR CODE HERE
+// Draw a triangle between the three points
+func drawTriangle(p1: Point, p2: Point, p3: Point, figure: SVG) {
+    // YOUR CODE HERE
+    figure.addLine(p1: p1, p2: p2, color: "black")
+    figure.addLine(p1: p2, p2: p3, color: "black")
+    figure.addLine(p1: p3, p2: p1, color: "black")
+}
 
 // Draw a triangle between the three points and then recursively draw
 // three more triangles in each of the three corners of the first triangle.
 func sierpinski(p1: Point, p2: Point, p3: Point, level: Int, figure: SVG) {
     // YOUR CODE HERE
+    if level <= 0 {
+        return
+    } else {
+        drawTriangle(p1: p1, p2: p2, p3: p3, figure: figure)
+        sierpinski(p1: p1, p2: midpoint(p1, p2), p3: midpoint(p1, p3), level: level - 1, figure: figure)
+        sierpinski(p1: p2, p2: midpoint(p1, p2), p3: midpoint(p2, p3), level: level - 1, figure: figure)
+        sierpinski(p1: p3, p2: midpoint(p1, p3), p3: midpoint(p2, p3), level: level - 1, figure: figure)
+    }
 }
 
 // Start the algorithm off using a 300x300 canvas and its largest triangle
